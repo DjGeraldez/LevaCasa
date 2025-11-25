@@ -6,8 +6,24 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Navbar } from '@/components/custom/navbar'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { translations } from '@/lib/i18n'
+import { useEffect, useState } from 'react'
 
 export default function HomePage() {
+  const [mounted, setMounted] = useState(false)
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Evitar problemas de hidratação - renderizar conteúdo apenas após montagem
+  if (!mounted) {
+    return null
+  }
+
+  return <HomePageContent />
+}
+
+function HomePageContent() {
   const { language } = useLanguage()
   const t = translations[language]
 

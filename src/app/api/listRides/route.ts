@@ -1,14 +1,5 @@
-import { NextResponse } from "next/server";
-
+import { NextResponse } from 'next/server';
 export async function GET() {
-  const rides = [
-    {
-      id: "ride1",
-      origem: "Lisboa",
-      destino: "Porto",
-      preco_est: 15.9,
-    },
-  ];
-
-  return NextResponse.json({ rides });
+  const mock = [{ id: "1", origem: "Lisboa", destino: "Porto", status: "open" }];
+  return NextResponse.json({ success:true, rides: mock },{ status:200 });
 }

@@ -6,6 +6,7 @@ import "./globals.css";
 // Import all available fonts for AI usage
 import "../lib/fonts";
 import { Providers } from "@/components/providers";
+import { AIChat } from "@/components/custom/AIChat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default function RootLayout({
       >
         <Providers>
           {children}
+          <AIChat />
         </Providers>
       </body>
     </html>

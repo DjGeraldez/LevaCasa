@@ -48,11 +48,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Evitar flash de conteúdo não estilizado
-  if (!mounted) {
-    return <>{children}</>
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
@@ -62,8 +57,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext)
+  // Retornar valores padrão seguros durante SSR/pre-rendering
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
+    return { theme: 'light' as Theme, toggleTheme: () => {} }
   }
   return context
 }

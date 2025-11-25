@@ -40,7 +40,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // SEMPRE fornecer o contexto, mesmo antes da montagem
   return (
     <LanguageContext.Provider value={{ language, setLanguage }}>
       {children}
@@ -51,17 +50,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 export function useLanguage() {
   const context = useContext(LanguageContext)
   
-  // Fallback seguro para SSR/prerendering
+  // Retornar valores padrão seguros durante SSR/pre-rendering
   if (context === undefined) {
-    // Durante SSR ou prerendering, retornar valores padrão
-    if (typeof window === 'undefined') {
-      return {
-        language: 'pt' as Language,
-        setLanguage: () => {}
-      }
+    return {
+      language: 'pt' as Language,
+      setLanguage: () => {}
     }
-    
-    throw new Error('useLanguage must be used within a LanguageProvider')
   }
   
   return context
